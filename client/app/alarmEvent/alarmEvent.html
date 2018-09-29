@@ -1,0 +1,29 @@
+
+<table ng-if="alarmEventCtrl.alarmEvents.length > 0" class='table'>
+  <tr>
+    <th>Fecha</th>
+    <th>idAlarma</th>
+    <th>Nombre</th>
+    <th>Empresa</th>
+    <th>Direccion</th>
+    <th>Telefono</th>
+    <th>Evento</th>
+    <th>Accion</th>
+  </tr>
+  <tr ng-if="!event.visto" ng-repeat="event in alarmEventCtrl.alarmEvents">
+    <td>{{event.evento.eventoFecha}} {{event.evento.eventoHora}}</td>
+    <td>{{event.idAlarma}}</td>
+    <td>{{event.nombre}}</td>
+    <td>{{event.empresa}}</td>
+    <td>{{event.direccion}}</td>
+    <td>{{event.telefono}}</td>
+    <td>{{event.evento.eventodesc}}</td> 
+    <td>
+        <button type="submit" class="btn btn-primary" ng-click="alarmEventCtrl.openTab(event.url,event)">Open
+        </button>
+      </td>
+  </tr>
+</table>
+<h1 ng-if="alarmEventCtrl.alarmEvents.length === 0 ">
+    No hay eventos nuevos
+</h1>

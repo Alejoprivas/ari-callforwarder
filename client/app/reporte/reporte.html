@@ -1,0 +1,290 @@
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+                    Llamadas
+                </div>
+                    <div class="panel-body">
+	<div class="row ">
+
+		<div class="col-md-6">
+            <div class="input-group" >
+            <span class="input-group-addon" id="basic-addon1">Desde</span>            
+                <input type="text" class="form-control" datetime-picker="dd/MM/yyyy HH:mm:ss" ng-model="reporteCtrl.dt" is-open="reporteCtrl.state" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="reporteCtrl.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+            </div>            
+		</div>
+		<div class="col-md-6">
+            <div class="input-group">
+             <span class="input-group-addon" id="basic-addon1">Hasta</span>           
+          <input type="text" class="form-control" datetime-picker="dd/MM/yyyy HH:mm:ss" ng-model="reporteCtrl.dt2" is-open="reporteCtrl.state2" datepicker-options="dateOptions2" ng-required="true" close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="reporteCtrl.open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </div>            
+		</div>
+    </div>
+        <div class="row">    
+            <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-addon"  id="basic-addon1">Empleado</span>
+                    <select id="Extension" ng-model="reporteCtrl.empleado" name="Extension" placeholder="Empleado" class="form-control">
+                        <option ng-repeat="user in reporteCtrl.users" value="{{user._id}}">{{user.name}}</option>
+                    </select>
+                </div>
+                </div>            
+
+            <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-addon"  id="basic-addon1">Condominio</span>
+                    <select id="Extension"  ng-model="reporteCtrl.condominio" name="Extension" placeholder="Condominio" class="form-control">
+                        <option ng-repeat="condo in reporteCtrl.condominios" value="{{condo.nombre}}">{{condo.nombre}}</option>
+                    </select>
+                  </div>      
+            </div>          
+        </div> 
+<div class="row">
+    <div class="col-md-12">
+        <button type="button" ng-click="reporteCtrl.query()" class="btn btn-default">Buscar</button>
+    </div>
+</div>
+<h2 class="text-center" ng-if="!reporteCtrl.reportes.length">
+    No hay registros
+</h2>
+<table class="table table-bordered" ng-if="reporteCtrl.reportes.length">
+				<thead>
+					<tr>
+                        <th  class="text-center">
+							Inicio del llamado
+						</th>
+                        <th  class="text-center">
+							Hora de respuesta
+						</th>
+						<th  class="text-center">
+				            Fin de llamado
+						</th>
+                        <th  class="text-center">
+							Condominio/Edificio
+						</th>
+                        <th  class="text-center">
+							Observacion
+						</th>
+                        <th  class="text-center">
+                            Mas informacion
+						</th>
+                        <th  class="text-center">
+							Apertura
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="rep in reporteCtrl.reportes = (reporteCtrl.reportes | filter : {uploadDate: filterText}) | limitTo:5:5*(reporteCtrl.currentPage-1)">
+						<td  class="text-center">
+                            {{rep.joinedHoldingBridge  |  date:"dd/MM/yyyy 'H:' h:mm:ss a"}}
+						</td>
+
+                        <td   class="text-center">
+                            {{rep.leftHoldingBridge  |  date:"dd/MM/yyyy 'H:' h:mm:ss a"}}
+						</td>
+                        <td   class="text-center">
+                           {{rep.endStasis  |  date:"dd/MM/yyyy 'H:' h:mm:ss a"}}
+						</td>
+                        
+                        <td   class="text-center">
+                            {{rep.condo.nombre}}
+						</td>
+                        <td   class="text-center">  
+                            {{rep.observacion  || "-"}}
+						</td>
+                        <td   class="text-center">  
+                            -Operador:  {{rep.operador.name || "Sin recepcionar"}}<br>
+                            -Responsable: {{rep.responsable.nombre  || "No"}} {{rep.responsable.apellidos  || ""}}<br>
+                            -Visitante: {{rep.visitante.nombre  || "No"}} {{rep.visitante.apellidos  || ""}}
+						</td>
+                        <td   class="text-center">
+                                <div ng-if="!rep.apertura.length">Sin apertura</div>
+                                <table class="table table-bordered" ng-if="rep.apertura.length">
+                                  <tr>
+                                    <th class="text-center">Posicion</th>
+                                    <th class="text-center">Fecha</th>
+                                  </tr>
+                                  <tr  ng-repeat="apertura in rep.apertura">
+                                    <td class="text-center">{{apertura.posicion}}</td>
+                                    <td class="text-center">{{apertura.fecha |  date:" h:mm:ss a" }}</td>
+                                  </tr>
+                                </table>                          
+						</td>
+					</tr>
+				</tbody>
+			</table>
+                    <ul uib-pagination class="pagination-sm pagination" total-items="reporteCtrl.cantidad" ng-model="reporteCtrl.currentPage"
+         previous-text="&lsaquo;" next-text="&rsaquo;" items-per-page=5></ul >
+                    </div>
+            </div>
+                                        
+        </div>
+    </div>
+
+
+</div>    
+
+<!--     
+<div class="row">
+<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<strong>
+                        Llamadas:	 
+                        </strong>
+					</h3>
+				</div>
+<div class="panel-body">                
+	<div class="row ">
+
+		<div class="col-md-6">
+            <div class="input-group" >
+            <span class="input-group-addon" id="basic-addon1">Desde</span>            
+                <input type="text" class="form-control" datetime-picker="dd/MM/yyyy HH:mm:ss" ng-model="reporteCtrl.dt" is-open="reporteCtrl.state" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="reporteCtrl.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+            </div>            
+		</div>
+		<div class="col-md-6">
+            <div class="input-group">
+             <span class="input-group-addon" id="basic-addon1">Hasta</span>           
+          <input type="text" class="form-control" datetime-picker="dd/MM/yyyy HH:mm:ss" ng-model="reporteCtrl.dt2" is-open="reporteCtrl.state2" datepicker-options="dateOptions2" ng-required="true" close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="reporteCtrl.open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </div>            
+		</div>
+    </div>
+        <div class="row">    
+            <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-addon"  id="basic-addon1">Empleado</span>
+                    <select id="Extension" ng-model="reporteCtrl.empleado" name="Extension" placeholder="Empleado" class="form-control">
+                        <option ng-repeat="user in reporteCtrl.users" value="{{user.name}}">{{user.name}}</option>
+                    </select>
+                </div>
+                </div>            
+
+            <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-addon"  id="basic-addon1">Condominio</span>
+                    <select id="Extension"  ng-model="reporteCtrl.condominio" name="Extension" placeholder="Condominio" class="form-control">
+                        <option ng-repeat="condo in reporteCtrl.condominios" value="{{condo.nombre}}">{{condo.nombre}}</option>
+                    </select>
+                  </div>      
+            </div>          
+        </div> 
+<div class="row">
+    <div class="col-md-12">
+        <button type="button" ng-click="reporteCtrl.query()" class="btn btn-default">Buscar</button>
+    </div>
+</div>
+<table class="table table-bordered">
+				<thead>
+					<tr>
+                        <th  class="text-center">
+							Fecha del llamado
+						</th>
+						<th  class="text-center">
+				            Operador
+						</th>
+                        <th  class="text-center">
+							Condominio/Edificio
+						</th>
+                        <th  class="text-center">
+							Observacion
+						</th>
+                        <th  class="text-center">
+							Direccion
+						</th>
+                        <th  class="text-center">
+							Visitante
+						</th>
+                        <th  class="text-center">
+							Residente
+						</th>
+                        <th  class="text-center">
+							Se abrio puerta
+						</th>
+                        <th  class="text-center">
+							Reproducir
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="vid in reporteCtrl.misReportes = (reporteCtrl.misReportes | filter : {uploadDate: filterText}) | limitTo:5:5*(reporteCtrl.currentPage-1)">
+
+						<td  class="text-center">
+							{{vid.uploadDate  |  date:"dd/MM/yyyy 'Hora:' h:mm:ss a"}}
+						</td>
+
+                        <td   class="text-center">
+							{{vid.metadata.receptor.name+ " | Ext:" || "Sin info" }}  
+							{{vid.metadata.receptor.extension || " " }}
+						</td>
+                        <td   class="text-center">
+							{{vid.metadata.condominio}}
+						</td>
+                        <td   class="text-center">
+							{{vid.metadata.observacion}}
+						</td>
+                        <td   class="text-center">
+							{{vid.metadata.direccion}}   
+						</td>
+                        <td   class="text-center">
+							{{vid.metadata.huesped.nombre || "Sin info"}}        
+							{{vid.metadata.huesped.apellidos || ""}}        
+						</td>
+                        <td   class="text-center">
+							{{vid.metadata.responsable.nombre || "Sin info"}}        
+							{{vid.metadata.responsable.apellidos || ""}}        
+							{{vid.metadata.responsable.piso || ""}}        
+						</td>
+                        <td   class="text-center"> 
+                            <div ng-if="vid.metadata.codigoMandado">Si</div>
+                            <div ng-if="!vid.metadata.codigoMandado">No</div>
+						</td>
+                        <td  class="text-center">
+							<span ng-click="reporteCtrl.playVideo(vid)" class="glyphicon glyphicon-play" aria-hidden="true"></span>        
+					      
+						</td>
+					</tr>
+				</tbody>
+			</table>
+                    <ul uib-pagination class="pagination-sm pagination" total-items="reporteCtrl.totalItems" ng-model="reporteCtrl.currentPage"
+         previous-text="&lsaquo;" next-text="&rsaquo;" items-per-page=5></ul >
+ </div>                     
+</div>
+</div>
+</div>	
+<div class="row">    
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <strong>
+                    Player:        
+                    </strong>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <videogular vg-player-ready="reporteCtrl.onPlayerReady($API)"  vg-theme="reporteCtrl.config.theme.url">
+                <vg-media vg-src="reporteCtrl.config.sources" vg-native-controls="true">
+                </vg-media>
+                </videogular>                   
+            </div>                  
+        </div>
+    </div>
+    </div>
+-->

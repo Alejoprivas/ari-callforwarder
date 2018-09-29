@@ -1,0 +1,86 @@
+<div class="modal-header">
+  <button ng-if="modal.dismissable" type="button" ng-click="$dismiss()" class="close">&times;</button>
+  <h4  class="modal-title">Agregar dispositivo:</h4>
+</div>
+<div class="modal-body">
+
+<form class="form-horizontal">
+<fieldset>
+ 
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="Nombre">Id Alarma</label>  
+  <div class="col-md-4">
+  <input id="Nombre" name="Nombre" ng-model="item.idAlarma" type="text" placeholder="" class="form-control input-md">
+  
+  </div>
+</div>
+ 
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="Nombre">Nombre</label>  
+  <div class="col-md-4">
+  <input id="Nombre" name="Nombre" ng-model="item.nombre" type="text" placeholder="" class="form-control input-md">
+  
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Empresa</label>  
+  <div class="col-md-4">
+  <input id="textinput" name="textinput" ng-model="item.empresa" type="text" placeholder="" class="form-control input-md">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Telefono</label>  
+  <div class="col-md-4">
+  <input id="textinput" name="textinput" ng-model="item.telefono" type="text" placeholder="" class="form-control input-md">
+    
+  </div>
+</div>
+<!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="selectbasic">Estado</label>
+  <div class="col-md-4">
+    <select id="selectbasic" ng-model="item.abonando"  name="selectbasic" class="form-control">
+      <option value="1">Activo</option>
+      <option value="0">Inactivo</option>
+    </select>
+  </div>
+</div>
+
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="URL">URL</label>  
+  <div class="col-md-4">
+  <input id="URL" name="URL" ng-model="item.url" type="text" placeholder="" class="form-control input-md">
+    
+  </div>
+</div>
+
+<!-- Button (Double) -->
+
+</fieldset>
+</div>
+<div class="modal-footer">
+<div class="form-group">
+<fieldset>
+  <label class="col-md-4 control-label" for="button1id"></label>
+  <div class="col-md-8"> 
+    <button id="button1id" name="button1id"  ng-click='ok(item) '  class="btn btn-success">Aceptar</button>
+      
+    <button id="button2id" name="button2id" ng-click="cancel()" class="btn btn-danger">Cancelar</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+</div>

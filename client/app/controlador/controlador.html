@@ -1,0 +1,90 @@
+<monitor></monitor>
+<div class="container-fluid" >
+	<div class="row" >
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<strong>
+                        Controladores:
+                        </strong>
+					</h3>
+				</div>
+				<div class="panel-body">    
+<div>
+    <div class="row">
+        <div class="col-md-12">
+
+<form class="form-inline">
+  <button  ng-click="controladorCtrl.newModal()"  type="submit" class="btn btn-primary"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Controlador</button> 
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputAmount">Buscar</label>
+    <div class="input-group">
+      <div class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
+      <input type="text" ng-model="controladorCtrl.searchText" class="form-control" id="exampleInputAmount" placeholder="Buscar...">
+        
+    </div>
+  </div>
+
+</form>     
+                </div>
+            </div> 
+    <div ng-if="!controladorCtrl.controladors.length > 0">
+    <h1>No hay datos disponibles...</h1>
+</div>
+			<table class="table table-bordered" ng-if="controladorCtrl.controladors.length > 0">
+				<thead>
+					<tr>
+                        <th>
+							Id
+						</th>
+                        <th>
+							Nombre
+						</th>
+                        <th>
+							Condominio
+						</th>
+                        <th>
+							Direccion
+						</th>
+						<th>
+							Numero de reles
+						</th>
+						<th>
+							Accion
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="item in controladorCtrl.controladors | filter: controladorCtrl.searchText | limitTo:5:5*(
+                                   controladorCtrl.currentPage-1)">
+                        <td>
+                            {{item._id}}
+						</td>
+                        <td>
+                           {{item.nombre}}
+						</td>
+                        <td>
+                           {{item.condominio.nombre}}
+						</td>
+                        <td>
+                           {{item.condominio.direccion}}
+						</td>
+                        <td>
+                            {{item.io.length}}
+						</td>
+                        <td>
+                        <button  ng-click="controladorCtrl.modModal(item)"  type="submit" class="btn btn-primary"> Modificar</button>    
+                        <button  ng-click="controladorCtrl.delete(item.nombre,item)"  type="submit" class="btn btn-danger"> Borrar</button>     
+						</td>
+					</tr>
+				</tbody>
+			</table>
+                   <ul ng-if="controladorCtrl.controladors.length > 0" uib-pagination class="pagination-sm pagination" total-items="controladorCtrl.controladors.length" ng-model="controladorCtrl.currentPage"
+                    previous-text="&lsaquo;" next-text="&rsaquo;" items-per-page=5></ul >                    
+				</div>
+				</div>      
+			</div>
+		</div>
+	</div>
+</div>

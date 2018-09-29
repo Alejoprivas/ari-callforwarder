@@ -1,0 +1,204 @@
+
+<div class="container-fluid" >
+	<div class="row" >
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<strong>
+                        Alarmas:
+                        </strong>
+					</h3>
+				</div>
+				<div class="panel-body">    
+<div >
+            <div class="row">
+                <div class="col-md-12">
+
+<form class="form-inline">
+  <button  ng-click="alarmaCtrl.newModal()"  type="submit" class="btn btn-primary"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Alarma</button> 
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputAmount">Buscar</label>
+    <div class="input-group">
+      <div class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
+      <input type="text" ng-model="alarmaCtrl.searchText" class="form-control" id="exampleInputAmount" placeholder="Buscar...">
+        
+    </div>
+  </div>
+
+</form>     
+                </div>
+            </div> 
+    <div ng-if="!alarmaCtrl.alarmas.length > 0">
+    <h1>No hay datos disponibles...</h1>
+</div>
+			<table class="table table-bordered" ng-if="alarmaCtrl.alarmas.length > 0">
+				<thead>
+					<tr>
+						<th>
+							Id Alarma
+						</th>
+                        <th>
+							Nombre
+						</th>
+						<th>
+							empresa
+						</th>
+						<th>
+							telefono
+						</th>
+						<th>
+							abonado
+						</th>
+						<th>
+							Url
+						</th>
+						<th>
+							Accion
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="item in alarmaCtrl.alarmas | filter: alarmaCtrl.searchText | limitTo:5:5*(
+                                   alarmaCtrl.currentPage-1)">
+                        <td>
+                            {{item.idAlarma}}
+						</td>
+                        <td>
+                            {{item.nombre}}
+						</td>       
+						<td>
+                            {{item.empresa}}
+						</td>
+						<td>
+                            {{item.telefono}}
+						</td>         
+						<td>
+                            {{item.abonando}}
+						</td>                                    
+						<td>  
+                            {{item.url}}   
+						</td>
+                        <td>
+                        <button  ng-click="alarmaCtrl.modModal(item)"  type="submit" class="btn btn-primary"> Modificar</button>    
+                        <button  ng-click="alarmaCtrl.delete(item.nombre,item)"  type="submit" class="btn btn-danger"> Borrar</button>     
+						</td>
+					</tr>
+				</tbody>
+			</table>
+                   <ul uib-pagination class="pagination-sm pagination" total-items="alarmaCtrl.alarmas.length" ng-model="alarmaCtrl.currentPage"
+                    previous-text="&lsaquo;" next-text="&rsaquo;" items-per-page=5></ul >                    
+				</div>
+				</div>      
+			</div>
+		</div>
+	</div>
+    <div class="row">
+        <div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<strong>
+                        Eventos:
+                        </strong>
+					</h3>
+				</div>
+				<div class="panel-body">
+	<div class="row ">
+
+		<div class="col-md-6">
+            <div class="input-group" >
+            <span class="input-group-addon" id="basic-addon1">Desde</span>            
+                <input type="text" class="form-control" datetime-picker="dd/MM/yyyy HH:mm:ss" ng-model="alarmaCtrl.dt" is-open="alarmaCtrl.state" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="alarmaCtrl.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+            </div>            
+		</div>
+		<div class="col-md-6">
+            <div class="input-group">
+             <span class="input-group-addon" id="basic-addon1">Hasta</span>           
+          <input type="text" class="form-control" datetime-picker="dd/MM/yyyy HH:mm:ss" ng-model="alarmaCtrl.dt2" is-open="alarmaCtrl.state2" datepicker-options="dateOptions2" ng-required="true" close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="alarmaCtrl.open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </div>            
+		</div>
+    </div>
+        <div class="row">    
+            <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-addon"  id="basic-addon1">Empleado</span>
+                    <select id="Extension" ng-model="alarmaCtrl.empleado" name="Extension" placeholder="Empleado" class="form-control">
+                        <option ng-repeat="user in alarmaCtrl.users" value="{{user._id}}">{{user.name}}</option>
+                    </select>
+                </div>
+                </div>                  
+        </div> 
+<div class="row">
+    <div class="col-md-12">
+        <button type="button" ng-click="alarmaCtrl.query()" class="btn btn-default">Buscar</button>
+    </div>
+</div>
+<table class="table table-bordered">
+				<thead>
+					<tr>
+                        <th  class="text-center">
+							Fecha    
+						</th>
+                        <th  class="text-center">
+							Visto el
+						</th>
+						<th  class="text-center">
+				            Operador
+						</th>
+                        <th  class="text-center">
+							Empresa
+						</th>
+                        <th  class="text-center">
+							Nombre
+						</th>
+                        <th  class="text-center">
+							Direccion
+						</th>
+                        <th  class="text-center">
+							Evento
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="reporte in alarmaCtrl.misReportes = (alarmaCtrl.misReportes | filter : {uploadDate: filterText}) | limitTo:5:5*(alarmaCtrl.currentPage-1)">
+						<td  class="text-center">
+							{{reporte.fecha}}
+							{{reporte.hora}}
+						</td>
+                        <td   class="text-center"> 
+                            {{reporte.vistoEl  | date:'MM/dd/yyyy @ h:mma'}}  
+						</td>                        
+                        <td   class="text-center">
+							{{reporte.username}}
+						</td>
+                        <td   class="text-center">
+							{{reporte.empresa}}
+						</td>
+                        <td   class="text-center">
+							{{reporte.nombre}} 
+						</td>
+                        <td   class="text-center">
+							{{reporte.direccion}}   
+						</td>
+                        <td   class="text-center">
+							{{reporte.evento.eventodesc}}   
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+                    <ul uib-pagination class="pagination-sm pagination" total-items="alarmaCtrl.totalItems" ng-model="alarmaCtrl.currentPage"
+         previous-text="&lsaquo;" next-text="&rsaquo;" items-per-page=5></ul >
+                </div>
+        </div>
+    </div>
+</div> 
+
+

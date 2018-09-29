@@ -1,0 +1,32 @@
+<div class="container-fluid">
+	<div class="row">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Reles</h3>
+      
+      <!-- Textarea -->
+    
+  </div>
+  <div class="panel-body">  
+        <table >
+          <tr>
+            <th>Posicion</th>
+            <th>Accion</th>
+          </tr>
+          <tr ng-if="$ioman.resp">
+            <td>Portero</td>
+            <td>
+                 <button type="button" class="btn btn-success" ng-click="$ioman.confirmar()">Abrir</button>  
+            </td>
+          </tr>
+          <tr ng-repeat="rele in $ioman.io.io">
+            <td>{{rele.nombre}} </td>
+            <td>
+                <button type="button" class="btn btn-success" ng-click="$ioman.operarRele(rele.pin,$ioman.io._id,rele.nombre)">Abrir</button>   
+            </td>
+          </tr>
+        </table>
+  </div>
+</div>
+  </div>
+</div>

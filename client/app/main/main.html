@@ -1,0 +1,188 @@
+ <div class="container">
+    <div class="row">
+    <div class="col-lg-6"> 
+ 			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+                        <strong>Cola: </strong>
+					</h3>
+				</div>
+				<div class="panel-body">
+                   <h1 ng-if="!$ctrl.testStack[0].length > 0" class="text-center"> No hay llamadas en la cola.</h1>    
+                    <div   ng-if="$ctrl.testStack[0].length > 0" >
+                    <table class='table table-bordered'>
+                      <tr> 
+                        <th>Tiempo de creacion</th>
+                        <th>Extension</th>
+                        <th>Condominio</th>
+                        <th>Preview</th>
+                        <th>Accion</th>
+                      </tr>
+                      <tr ng-repeat="callers in $ctrl.testStack[0]">
+                        <td>{{callers.creationtime | date:'MM/dd/yyyy @ h:mma' }}</td>
+                        <td>{{callers.extension}}</td>
+                        <td>{{callers.condo.nombre}}</td>
+                          <td>
+                          <img width="150" height="150" ng-if="callers.modelo==='verso'" style="-webkit-user-select: none;" ng-src="http://{{callers.IpAddress}}:5061/api/camera/snapshot?width=640&height=480&source=internal&fps=15">
+                          <img ng-if="callers.modelo==='dp104'"  style="-webkit-user-select: none;" ng-src="http://admin:admin@{{callers.IpAddress}}/DP/video.cgi" width="150" height="150">
+                          </td>                              
+                          <td>
+                        <button ng-if='!$ctrl.caller[0] && $ctrl.myExtension' ng-click='$ctrl.answer(callers,false)'  type="button" class="btn btn-success" aria-label="Left Align">Recibir    
+                            <span  class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+                        </button>
+                        <button ng-if='$ctrl.caller[0]'   type="button" class="btn btn-danger" aria-label="Left Align">Linea ocupada   
+                        </button>
+                        <button ng-if='!$ctrl.myExtension'   type="button" class="btn btn-danger" aria-label="Left Align">Usuario sin extension   
+                        </button> 
+                        <button ng-if='$ctrl.myRole === "conserje" '   type="button" class="btn btn-info" aria-label="Left Align" ng-click='$ctrl.answer(callers,true)'>
+                       Abrir
+                        </button> 
+                        <button ng-if='$ctrl.myRole === "conserje" || $ctrl.myRole === "admin"  '   type="button" class="btn btn-danger" aria-label="Left Align" ng-click='$ctrl.answer(callers,"hangup")'>
+                       Colgar
+                        </button>
+                        </td>
+                      </tr>
+                    </table>    
+                    </div>
+				</div> 
+			</div>
+    </div> 
+    <div class="col-lg-6">
+ 			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+                        <strong>Datos del condominio:</strong>                         
+					</h3>
+				</div>
+				<div class="panel-body">
+                    
+                    
+<h1 ng-if="!$ctrl.caller[0].condo.residentes" class="text-center">No se ha contestado una llamada.</h1>
+<div  ng-if="$ctrl.caller[0].condo.residentes"  >
+ 
+ 
+<ul>
+   <li>  
+      <strong>Condominio: {{$ctrl.caller[0].condo.nombre }}</strong> 
+   </li>
+   <li>  
+      <strong>Encargado: {{$ctrl.caller[0].condo.encargado }}</strong> 
+   </li>
+   <li>
+      <strong>Direccion: {{$ctrl.caller[0].condo.direccion  }}</strong> 
+   </li>
+   <li>
+      <strong>Telefono: {{$ctrl.caller[0].condo.telefono  }}</strong>  
+   </li>
+</ul> 
+<form class="form-horizontal">
+<fieldset>
+
+<!-- Form Name -->
+<legend>Visitante</legend>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-1 control-label" for="textinput">Nombre</label>  
+  <div class="col-md-4">
+  <input id="textinput" name="textinput" type="text" ng-model="$ctrl.caller[0].visitante.nombre" placeholder="Nombre" class="form-control input-md"> 
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-1 control-label" for="textinput">Apellidos</label>  
+  <div class="col-md-4">
+  <input id="textinput" name="textinput" type="text" ng-model="$ctrl.caller[0].visitante.apellidos" placeholder="Apellidos" class="form-control input-md"> 
+  </div>
+</div>
+
+</fieldset>
+</form>
+<div ng-if="$ctrl.caller[0].visitante.nombre">
+    
+<legend >Responsable del visitante</legend>    
+ <form class="form-inline" >
+   <div class="form-group">
+    <label class="sr-only" for="exampleInputAmount">Buscar</label>
+    <div class="input-group">
+      <div class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
+      <input ng-model="$ctrl.searchText" type="text" class="form-control" id="exampleInputAmount" placeholder="Filtrar...">
+        
+    </div>
+  </div>
+
+</form>      
+           <table class='table table-bordered' ng-if="$ctrl.caller[0].visitante.nombre">
+                      <tr>
+                        <th>Num° del Dept/Casa</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Telefono</th>
+                        <th>Seleccionar</th>
+                      </tr>
+
+                      <tr ng-repeat="callers in $ctrl.caller[0].condo.residentes | filter: $ctrl.searchText | limitTo:5:5*($ctrl.currentPage-1)">
+                        <td>{{callers.piso }}</td>
+                        <td>{{callers.nombre}}</td>
+                        <td>{{callers.apellidos}}</td>
+                        <td>{{callers.telefono}}</td>
+                        <td>
+                          <div class="radio">
+                            <label for="radios-$index">
+                              <input type="radio" name="radios" id="radios-1" ng-click="$ctrl.pickResidente(callers)">
+                              Selecionar
+                            </label>
+                            </div>                          
+                          </td>
+                      </tr>
+                      <tr>
+                        <td  > N/A </td>                       
+                        <td  > N/A</td>                       
+                        <td  > N/A</td>                       
+                        <td  > N/A </td>                       
+                        <td>
+                          <div class="radio">
+                            <label for="radios-$index">
+                              <input type="radio" name="radios" id="radios-1" ng-click="$ctrl.pickResidente(callers)">
+                              Borrar
+                            </label>
+                            </div>           
+                        </td>                          
+                      </tr>               
+                    </table>  
+                    <ul  ng-if="$ctrl.reporteCompleto.huesped.nombre && $ctrl.reporteCompleto.huesped.nombre" uib-pagination class="pagination-sm pagination" total-items="$ctrl.totalItems[0]" ng-model="$ctrl.currentPage" previous-text="&lsaquo;" next-text="&rsaquo;" items-per-page=5></ul >
+</div>
+<form class="form-inline">
+    <iomanager  ng-if="$ctrl.pickedCaller" resp="$ctrl.reporteCompleto" channel="$ctrl.caller[0].channelId" reporte="$ctrl.caller[0].idReporte" io="$ctrl.caller[0].condo.controlador[0]"></iomanager>    
+    <button id="singlebutton"  name="singlebutton" class="btn btn-danger" ng-click="$ctrl.colgar($ctrl.caller[0])">Colgar llamada</button> 
+</form> 
+<!-- Textarea -->
+<div class="form-group">
+  <label class="col-md-2 control-label" for="textarea">Observaciones</label>
+  <div class="col-md-12">                     
+    <textarea class="form-control" ng-model="$ctrl.caller[0].observacion" id="textarea" name="textarea"> </textarea>
+  </div>
+</div>    
+   
+</div> 
+				</div> 
+			</div>       
+    </div>
+        
+  </div> 
+    <socket></socket>
+	<!--div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						Alarmas:
+					</h3>
+				</div>
+				<div class="panel-body">
+                    <alarm-event></alarm-event>
+			</div>
+		</div>
+	</div>
+        
+</div-->

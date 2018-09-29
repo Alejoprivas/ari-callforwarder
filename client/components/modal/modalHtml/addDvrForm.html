@@ -1,0 +1,37 @@
+<div class="modal-header">
+  <button ng-if="modal.dismissable" type="button" ng-click="$dismiss()" class="close">&times;</button>
+  <h4  class="modal-title">Agregar dispositivo:</h4>
+</div>
+<div class="modal-body">
+
+<form class="form-horizontal">
+<fieldset>
+ 
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="Nombre">Id Alarma</label>  
+  <div class="col-md-4">
+  <input id="Nombre" name="Nombre" ng-model="item.idAlarma" type="text" placeholder="" class="form-control input-md">
+  
+  </div>
+</div>
+ 
+ 
+</fieldset>
+</div>
+<div class="modal-footer">
+<div class="form-group">
+<fieldset>
+  <label class="col-md-4 control-label" for="button1id"></label>
+  <div class="col-md-8"> 
+    <button id="button1id" name="button1id"  ng-click='ok(item) '  class="btn btn-success">Aceptar</button>
+      
+    <button id="button2id" name="button2id" ng-click="cancel()" class="btn btn-danger">Cancelar</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+</div>

@@ -1,0 +1,69 @@
+<div class="container-fluid">
+	<div class="row">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">consola</h3>
+  </div>
+  <div class="panel-body">  
+    <div  class="row">
+        <div class="col-lg-3">
+                <form class="form-horizontal">
+                <fieldset>
+
+                <!-- Form Name -->
+                <legend>COMMAND SOCKET</legend>
+
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="textinput">Register</label>  
+                  <div class="col-md-12">
+                  <input id="textinput" name="textinput" ng-model="$conCtrl.command.reggister" type="text"  class="form-control input-md">
+                                          <button id="singlebutton" ng-click="$conCtrl.register($conCtrl.command.register)"  name="singlebutton" class="btn btn-primary">Reg</button>                                          <button id="singlebutton" ng-click="$conCtrl.leave($conCtrl.command.register)"  name="singlebutton" class="btn btn-primary">Leave</button>
+                  </div>
+                </div>
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="textinput">Event</label>  
+                  <div class="col-md-12">
+                  <input id="textinput" name="textinput" ng-model="$conCtrl.command.event" type="text"  class="form-control input-md">  
+                  </div>
+                </div>
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="textinput">Command</label>  
+                  <div class="col-md-12">
+                  <input id="textinput" name="textinput" ng-model="$conCtrl.command.data" type="text"  class="form-control input-md">  
+                  </div>
+                </div>
+
+                <!-- Button -->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="singlebutton">SEND</label>
+                  <div class="col-md-12">
+                    <button id="singlebutton" ng-click="$conCtrl.runCom($conCtrl.command)"  name="singlebutton" class="btn btn-primary">RUN</button>
+                  </div>
+                </div>
+{{$conCtrl.command}}
+                </fieldset>
+                </form>
+        </div>
+        <div class="col-lg-8">
+            <form class="form-horizontal">
+            <fieldset>
+
+            <!-- Form Name -->
+            <legend>Response</legend>
+
+            <!-- Textarea -->
+              <div class="col-md-12">                     
+                <textarea ng-model="$conCtrl.consoleData" class="form-control form-control-lg" rows="8" id="textarea" name="textarea"></textarea>
+              </div>
+
+            </fieldset>
+            </form>
+        </div>
+    </div>
+  </div>
+</div>
+  </div>
+</div>

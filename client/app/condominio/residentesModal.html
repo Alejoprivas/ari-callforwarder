@@ -1,0 +1,126 @@
+
+
+
+ 
+
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Residente</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+ <div class="col-md-10">
+   			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						Residentes:
+					</h3>
+				</div>
+				<div class="panel-body">    
+<form name="residenteDetalle">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>
+							#Id
+						</th>
+						<th>
+							Rut
+						</th>
+						<th>
+							Nombres
+						</th>
+						<th>
+							Apellidos
+						</th>
+						<th>
+							Telefono
+						</th>
+                        <th>
+							Select   <input type="checkbox" ng-model="condominioCtrl.selectedAll" ng-click="condominioCtrl.checkAll(condominioCtrl.selectedAll)" />
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="residente in condominioCtrl.residentes">
+						<td>
+							{{$index + 1}}
+						</td>
+						<td>
+                             <input id="rut" name="rut" type="text" ng-pattern="condominioCtrl.numberPattern"  ng-disabled="!residente.inserted" class="form-control" ng-model="residente.rut"                  
+required/>
+                           
+			</td>
+						<td>
+                        <input type="text" id="nombre" ng-pattern="condominioCtrl.textPattern" name="nombre" ng-disabled="!residente.inserted" class="form-control" ng-model="residente.nombre"  
+required/>
+
+
+				</td>
+						<td>
+							<input type="text" id="apellidos" ng-pattern="condominioCtrl.textPattern" name="apellidos" ng-disabled="!residente.inserted" class="form-control" ng-model="residente.apellidos" 
+required/>
+
+    
+                            
+						</td>
+                        <td>
+<input type="text" id="telefono" name="telefono" ng-pattern="condominioCtrl.numberPattern" ng-disabled="!residente.inserted"   class="form-control" ng-model="residente.telefono"    
+ ng-minlength=9 ng-maxlength=9        
+       required/>
+                           
+						</td>
+                        <td>
+<input type="checkbox" ng-model="residente.selected"/>
+						</td>
+					</tr>  
+                    
+				</tbody>
+			</table>
+<table ng-if="residenteDetalle.$invalid">
+  <tr>
+    <th>
+   
+<div ng-if="residenteDetalle.rut.$touched && !residenteDetalle.rut.$valid"  class="alert alert-danger" role="alert">
+Rut<p ng-if="residenteDetalle.rut.$error.required"> no puede estar vacio</p>
+<p ng-if="residenteDetalle.rut.$error.pattern">Solo puede ingresar numeros</p>
+</div>          
+      </th>
+    <th>
+			    
+<div ng-if="residenteDetalle.nombre.$touched && !residenteDetalle.nombre.$valid"  class="alert alert-danger" role="alert">
+Nombres <p ng-if="residenteDetalle.nombre.$error.required">no puede estar vacio</p>
+<p ng-if="residenteDetalle.nombre.$error.pattern">Solo puede ingresar letras</p>
+</div>        
+      </th>
+    <th>
+<div ng-if="residenteDetalle.apellidos.$touched && !residenteDetalle.apellidos.$valid"   class="alert alert-danger" role="alert">
+Apellidos <p ng-if="residenteDetalle.apellidos.$error.required">Este campo no puede estar vacio</p>
+<p ng-if="residenteDetalle.apellidos.$error.pattern">Solo puede ingresar letras</p>
+</div>                 
+      </th>
+    <th>
+
+
+    <div ng-if="residenteDetalle.telefono.$touched && !residenteDetalle.telefono.$valid" class="alert alert-danger" role="alert">
+Telefono <p ng-if="residenteDetalle.telefono.$error.required">Este campo no puede estar vacio</p>
+<p ng-if="residenteDetalle.telefono.$error.pattern">Solo puede ingresar numeros</p>
+<p ng-if="residenteDetalle.telefono.$error.minlength ||  residenteDetalle.telefono.$error.maxlength ">Tiene que tener 9 caracteres</p>
+</div>       
+      </th>
+  </tr>
+</table>                         
+  
+                        <input type="submit" ng-disabled="residenteDetalle.$invalid" class="btn btn-primary addnew pull-right"  ng-click="condominioCtrl.addResidente()" value="Agregar"/>
+                        
+                      <input ng-hide="!condominioCtrl.residentes.length" type="button" class="btn btn-danger pull-right" ng-click="condominioCtrl.remove()" value="Remover"/>                       
+                        
+                        
+                
+</form>    
+                </div>
+			</div>
+  </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+        </div>

@@ -1,0 +1,283 @@
+<div class="container-fluid">
+	<div class="row" ng-if="condominioCtrl.startForm">
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+        <button  ng-click="condominioCtrl.unCallForm()" name="agregar" class="btn btn-warning">Regresar</button>
+                        <strong>
+                        Condominio:
+                        </strong>
+					</h3>
+				</div>
+				<div class="panel-body">
+
+<form class="form-horizontal">
+<fieldset>
+
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-3 control-label" for="Nombre">Nombre:</label>  
+  <div class="col-md-4">
+  <input id="Nombre"  ng-model="condominioCtrl.newCondo.nombre" name="Nombre" type="text" placeholder="Nombre" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-3 control-label" for="Direccion">Direccion:</label>  
+  <div class="col-md-4">
+  <input id="Direccion" ng-model="condominioCtrl.newCondo.direccion"  name="Direccion" type="text" placeholder="Direccion" class="form-control input-md" required="">
+    
+  </div>
+</div>
+<div class="form-group">
+  <label class="col-md-3 control-label" for="Direccion">Encargado:</label>  
+  <div class="col-md-4">
+  <input id="Direccion" ng-model="condominioCtrl.newCondo.encargado"  name="encargado" type="text" placeholder="Encargado" class="form-control input-md" required="">
+    
+  </div>
+</div><div class="form-group">
+  <label class="col-md-3 control-label" for="Direccion">Modelo:</label>  
+  <div class="col-md-4">
+  <input id="Direccion" ng-model="condominioCtrl.newCondo.modelo"  name="encargado" type="text" placeholder="Encargado" class="form-control input-md" required="">
+    
+  </div>
+</div>
+<div class="form-group">
+  <label class="col-md-3 control-label" for="Direccion">Telefono:</label>  
+  <div class="col-md-4">
+  <input id="Direccion" ng-model="condominioCtrl.newCondo.telefono"  name="telefono" type="text" placeholder="Telefono" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+<!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-3 control-label" for="Extension">Extension {{condominioCtrl.newCondo.extension}} </label>
+  <div class="col-md-4">
+    <input id="Extension" ng-model="condominioCtrl.newCondo.extension" name="Extension" class="form-control">
+
+  </div>
+</div>
+<!-- Select Basic -->
+<div class="form-group">
+
+    <div class="col-md-6"> 
+        
+        <iomanager ng-if="condominioCtrl.newCondo.controlador[0]" condo="condominioCtrl.newCondo" io="condominioCtrl.newCondo.controlador[0]"></iomanager>
+    </div>
+</div>
+
+
+
+</fieldset>
+</form>
+				</div>
+</div>
+		</div>
+	</div>  
+    
+    <div class="row"  ng-if="condominioCtrl.startForm">
+        <div class="col-md-12">
+   			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<strong>
+                        Residentes:
+                        </strong>
+					</h3>
+				</div>
+				<div class="panel-body">    
+<form name="residenteDetalle">
+			<table class="table table-bordered" ng-if="condominioCtrl.residentes.length>0">
+				<thead>
+					<tr>
+						<th>
+							#Id
+						</th>
+						<th>
+							Num° de Dept/Casa
+						</th>
+						<th>
+							Nombres
+						</th>
+						<th>
+							Apellidos
+						</th>
+						<th>
+							Telefono
+						</th>
+                        <th>
+							Select   <input type="checkbox" ng-model="condominioCtrl.selectedAll" ng-click="condominioCtrl.checkAll(condominioCtrl.selectedAll)" />
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="residente in condominioCtrl.residentes">
+						<td>
+							{{$index + 1}}
+						</td>
+						<td>
+                             <input id="piso" name="piso" type="text"   ng-disabled="!residente.inserted" class="form-control" ng-model="residente.piso" required/>
+                        </td>
+						<td>
+                        <input type="text" id="nombre" ng-pattern="condominioCtrl.textPattern" name="nombre" ng-disabled="!residente.inserted" class="form-control" ng-model="residente.nombre" required/>
+                        </td>
+						<td>
+							<input type="text" id="apellidos" ng-pattern="condominioCtrl.textPattern" name="apellidos" ng-disabled="!residente.inserted" class="form-control" ng-model="residente.apellidos" required/>
+						</td>
+                        <td>
+<input type="text" id="telefono" name="telefono" ng-pattern="condominioCtrl.numberPattern" ng-disabled="!residente.inserted"   class="form-control" ng-model="residente.telefono" ng-minlength=9 ng-maxlength=9 required/>
+                           
+						</td>
+                        <td>
+<input type="checkbox" ng-model="residente.selected"/>
+						</td>
+					</tr>  
+                    
+				</tbody>
+			</table>
+
+<h1 ng-if="!condominioCtrl.residentes.length">No se han agregado residentes</h1>
+    
+<table ng-if="residenteDetalle.$invalid">
+  <tr>
+    <th>
+   
+<div ng-if="residenteDetalle.piso.$touched && !residenteDetalle.piso.$valid"  class="alert alert-danger" role="alert">
+Piso<p ng-if="residenteDetalle.piso.$error.required"> no puede estar vacio</p>
+<p ng-if="residenteDetalle.piso.$error.pattern">Solo puede ingresar numeros</p>
+</div>          
+      </th>
+    <th>
+			    
+<div ng-if="residenteDetalle.nombre.$touched && !residenteDetalle.nombre.$valid"  class="alert alert-danger" role="alert">
+Nombres <p ng-if="residenteDetalle.nombre.$error.required">no puede estar vacio</p>
+<p ng-if="residenteDetalle.nombre.$error.pattern">Solo puede ingresar letras</p>
+</div>        
+      </th>
+    <th>
+<div ng-if="residenteDetalle.apellidos.$touched && !residenteDetalle.apellidos.$valid"   class="alert alert-danger" role="alert">
+Apellidos <p ng-if="residenteDetalle.apellidos.$error.required">Este campo no puede estar vacio</p>
+<p ng-if="residenteDetalle.apellidos.$error.pattern">Solo puede ingresar letras</p>
+</div>                 
+      </th>
+    <th>
+<div ng-if="residenteDetalle.telefono.$touched && !residenteDetalle.telefono.$valid" class="alert alert-danger" role="alert">
+Telefono <p ng-if="residenteDetalle.telefono.$error.required">Este campo no puede estar vacio</p>
+<p ng-if="residenteDetalle.telefono.$error.pattern">Solo puede ingresar numeros</p>
+<p ng-if="residenteDetalle.telefono.$error.minlength ||  residenteDetalle.telefono.$error.maxlength ">Tiene que tener 9 caracteres</p>
+</div>       
+      </th>
+  </tr>
+</table>                         
+  <input type="submit" ng-disabled="residenteDetalle.$invalid" class="btn btn-primary addnew pull-right"  ng-click="condominioCtrl.addResidente()" value="Agregar"/>
+  <input ng-hide="!condominioCtrl.residentes.length" type="button" class="btn btn-danger pull-right" ng-click="condominioCtrl.remove()" value="Remover"/>                       
+                
+</form>   
+                     <button id="agregar" ng-if="!condominioCtrl.updateC" ng-click="condominioCtrl.addCondo()" name="agregar" class="btn btn-success">Agregar condominio</button>                   
+                     <button id="update" ng-if="condominioCtrl.updateC" ng-click="condominioCtrl.updateCondo()" name="update" class="btn btn-success">Actualizar condominio</button>                   
+                                      
+                </div>
+			</div>
+  </div>
+    </div>
+    
+	<div class="row" ng-if="!condominioCtrl.startForm">
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<strong>
+                        Condominios:
+                        </strong>
+					</h3>
+				</div>
+				<div class="panel-body">
+
+<div >
+            <div class="row">
+                <div class="col-md-12">
+
+<form class="form-inline">
+  <button ng-click="condominioCtrl.callForm()"  type="submit" class="btn btn-primary"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar condominio</button>    
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputAmount">Buscar</label>
+    <div class="input-group">
+      <div class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
+      <input type="text" ng-model='condominioCtrl.searchText' class="form-control" id="exampleInputAmount" placeholder="Buscar...">
+        
+    </div>
+  </div>
+</form>     
+                </div>
+            </div> 
+    <div ng-if="!condominioCtrl.condominios.length > 0">
+    <h1>No hay datos disponibles...</h1>
+</div>
+			<table class="table table-bordered" ng-if="condominioCtrl.condominios.length > 0">
+				<thead>
+					<tr>
+						<th>
+							Nombre
+						</th>
+						<th>
+							Direccion
+						</th>
+						<th>
+							Residentes
+						</th>
+						<th>
+							Extension
+						</th>
+						<th>
+							Controladores
+						</th>
+						<th>
+							Accion
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+								<tr ng-repeat="condo in condominioCtrl.condominios | filter: condominioCtrl.searchText | limitTo:5:5*(
+                                   condominioCtrl.currentPage-1)">
+                        <td>
+							{{condo.nombre}}
+						</td>
+						<td>
+							{{condo.direccion}}
+						</td>
+						<td>
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>  {{condo.residentes.length || "0" }}
+
+						</td>
+						<td>
+							{{condo.extension }}
+						</td>
+						<td>
+							{{condo.controlador.length }}
+						</td>
+                        <td>
+							<button type="submit" class="btn btn-primary" ng-click="condominioCtrl.selectCondo(condo)">Seleccionar</button>
+                            <button type="submit" class="btn btn-danger" ng-click="condominioCtrl.deleteCondo(condo)">Eliminar </button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+                   <ul uib-pagination class="pagination-sm pagination" total-items="condominioCtrl.totalItems" ng-model="condominioCtrl.currentPage"
+         previous-text="&lsaquo;" next-text="&rsaquo;" items-per-page=5></ul >                    
+                    
+                    
+				</div>
+				</div>
+                
+                
+                
+			</div>
+		</div>
+	</div>
+
+    
+</div>

@@ -1,0 +1,92 @@
+
+<div class="container-fluid" >
+	<div class="row" >
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<strong>
+                        Empleados:
+                        </strong>
+					</h3>
+				</div>
+				<div class="panel-body">
+                    
+<div >
+            <div class="row">
+                <div class="col-md-12">
+
+<form class="form-inline">
+  <button ui-sref="signup" type="submit" class="btn btn-primary"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar empleado</button>    
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputAmount">Buscar</label>
+    <div class="input-group">
+      <div class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
+      <input type="text" ng-model="admin.searchText" class="form-control" id="exampleInputAmount" placeholder="Buscar...">
+        
+    </div>
+  </div>
+
+</form>     
+                </div>
+            </div> 
+    <div ng-if="!admin.users.length > 0">
+    <h1>No hay datos disponibles...</h1>
+</div>
+			<table class="table table-bordered" ng-if="admin.users.length > 0">
+				<thead>
+					<tr>
+						<th>
+							Nombre
+						</th>
+						<th>
+							Email
+						</th>
+						<th>
+							Role
+						</th>
+						<th>
+							Extension
+						</th>
+						<th>
+							Accion
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+								<tr ng-repeat="empleado in admin.users | filter: admin.searchText | limitTo:5:5*(
+                                   admin.currentPage-1)">
+                        <td>
+							{{empleado.name}}
+						</td>
+						<td>
+							{{empleado.email}}
+						</td>
+						<td>
+							{{empleado.role}}
+						</td>                                    
+						<td>  
+                            {{empleado.extension}}
+						</td>
+                        <td>
+							<button type="submit" class="btn btn-primary" ng-click="admin.modificar(empleado)">Seleccionar</button>
+                             <a ng-click="admin.delete(empleado.name, empleado)" class="trash"><span class="fa fa-trash fa-2x"></span></a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+                   <ul uib-pagination class="pagination-sm pagination" total-items="admin.users.length" ng-model="admin.currentPage"
+         previous-text="&lsaquo;" next-text="&rsaquo;" items-per-page=5></ul >                    
+
+                    
+				</div>
+				</div>
+                
+                
+                
+			</div>
+		</div>
+	</div>
+
+    
+</div> 

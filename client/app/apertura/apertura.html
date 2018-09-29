@@ -1,0 +1,131 @@
+
+
+<div class="container-fluid">
+    
+<div class="row">
+<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<strong>
+                        Aperturas:	 
+                        </strong>
+					</h3>
+				</div>
+<div class="panel-body">                
+	<div class="row ">
+
+		<div class="col-md-6">
+            <div class="input-group" >
+            <span class="input-group-addon" id="basic-addon1">Desde</span>            
+                <input type="text" class="form-control" datetime-picker="dd/MM/yyyy HH:mm:ss" ng-model="aperturaCtrl.dt" is-open="aperturaCtrl.state" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="aperturaCtrl.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+            </div>            
+		</div>
+		<div class="col-md-6">
+            <div class="input-group">
+             <span class="input-group-addon" id="basic-addon1">Hasta</span>           
+          <input type="text" class="form-control" datetime-picker="dd/MM/yyyy HH:mm:ss" ng-model="aperturaCtrl.dt2" is-open="aperturaCtrl.state2" datepicker-options="dateOptions2" ng-required="true" close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="aperturaCtrl.open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </div>            
+		</div>
+    </div>
+        <div class="row">    
+            <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-addon"  id="basic-addon1">Empleado</span>
+                    <select id="Extension" ng-model="aperturaCtrl.empleado" name="Extension" placeholder="Empleado" class="form-control">
+                        <option ng-repeat="user in aperturaCtrl.users" value="{{user.name}}">{{user.name}}</option>
+                    </select>
+                </div>
+                </div>            
+
+            <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-addon"  id="basic-addon1">Condominio</span>
+                    <select id="Extension"  ng-model="aperturaCtrl.condominio" name="Extension" placeholder="Condominio" class="form-control">
+                        <option ng-repeat="condo in aperturaCtrl.condominios" value="{{condo.nombre}}">{{condo.nombre}}</option>
+                    </select>
+                  </div>      
+            </div>          
+        </div> 
+<div class="row">
+    <div class="col-md-12">
+        <button type="button" ng-click="aperturaCtrl.query()" class="btn btn-default">Buscar</button>
+    </div>
+</div>
+<h2 class="text-center" ng-if="!aperturaCtrl.misReportes.length">
+    No se encontro registros
+</h2>
+<table ng-if="aperturaCtrl.misReportes.length" class="table table-bordered">
+				<thead>
+					<tr>
+                        <th  class="text-center">
+							Fecha de apertura    
+						</th>
+						<th  class="text-center">
+				            Operador
+						</th>
+                        <th  class="text-center">
+							Condominio/Edificio
+						</th>
+                        <th  class="text-center">
+							Reporte
+						</th>
+                        <th  class="text-center">
+							Tipo
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="aper in aperturaCtrl.misReportes = (aperturaCtrl.misReportes | filter : {uploadDate: filterText}) | limitTo:5:5*(aperturaCtrl.currentPage-1)">
+
+						<td  class="text-center">
+							
+						</td>
+						<td  class="text-center">
+							
+						</td>
+						<td  class="text-center">
+							
+						</td>
+						<td  class="text-center">
+							
+						</td>
+						<td  class="text-center">
+							
+						</td>
+					</tr>
+				</tbody>
+			</table>
+                    <ul uib-pagination class="pagination-sm pagination" total-items="aperturaCtrl.totalItems" ng-model="aperturaCtrl.currentPage"
+         previous-text="&lsaquo;" next-text="&rsaquo;" items-per-page=5></ul >
+ </div>                     
+</div>
+</div>
+</div>	
+<div class="row">    
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <strong>
+                    Player:        
+                    </strong>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <videogular vg-player-ready="aperturaCtrl.onPlayerReady($API)"  vg-theme="aperturaCtrl.config.theme.url">
+                <vg-media vg-src="aperturaCtrl.config.sources" vg-native-controls="true">
+                </vg-media>
+                </videogular>                   
+            </div>                  
+        </div>
+    </div>
+    </div>
+
+</div>    

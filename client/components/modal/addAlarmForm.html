@@ -1,0 +1,56 @@
+
+<form class="form-horizontal">
+<fieldset>
+
+<!-- Form Name -->
+<legend>Agregar dispositivo:</legend>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="Nombre">Nombre</label>  
+  <div class="col-md-4">
+  <input id="Nombre" name="Nombre" ng-model="item.nombre" type="text" placeholder="" class="form-control input-md">
+  
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Empresa</label>  
+  <div class="col-md-4">
+  <input id="textinput" name="textinput" ng-model="item.empresa" type="text" placeholder="" class="form-control input-md">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Telefono</label>  
+  <div class="col-md-4">
+  <input id="textinput" name="textinput" ng-model="item.telefono" type="text" placeholder="" class="form-control input-md">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="URL">URL</label>  
+  <div class="col-md-4">
+  <input id="URL" name="URL" ng-model="item.url" type="text" placeholder="" class="form-control input-md">
+    
+  </div>
+</div>
+
+<!-- Button (Double) -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="button1id"></label>
+  <div class="col-md-8">
+    <button id="button1id" name="button1id"  ng-click='alarmaController.addAlarm(modal)'  class="btn btn-success">Aceptar</button>
+      
+    <button id="button2id" name="button2id" ng-click="$dismiss()" class="btn btn-danger">Cancelar</button>
+      
+  </div>
+</div>
+{{myModal}}
+</fieldset>
+</form>
