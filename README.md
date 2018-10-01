@@ -1,12 +1,12 @@
 # ari-callforwarder
 
-this is a proyect that uses asterisk rest interface to control inbound calls and put them on hold, when the calls are in hold you can transfer the calls to the operator who is logged in in the account. once the operator get's the call he must fill the form and he's allowed to enter the building.
+this is a proyect that uses asterisk rest interface to control inbound calls and put them on hold, when the calls are in hold you can transfer the calls to the operator who is logged in the account. once the operator get's the call he must fill the form and he's allowed to enter the building.
 
 this proyect is made using:
 
 https://github.com/angular-fullstack/generator-angular-fullstack
 
-a yeoman generator for creating MEAN/SEAN stack applications  
+a yeoman generator for creating and scaffolding MEAN/SEAN stack applications  
 
 https://github.com/asterisk/node-ari-client.
 
@@ -20,3 +20,5 @@ using the power of websockets, operators can manage an ivr using chrome or firef
 https://www.youtube.com/watch?v=J8A4ncXl2ME
 
 https://www.youtube.com/watch?v=DtHThheCKTE
+
+NOTE: some files are missing.
